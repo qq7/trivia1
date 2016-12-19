@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <p>{{question.answer}}</p>
-    <h5>Question:</h5>
+    <h5>Question №{{question.id}}</h5>
+    <h6>Category: {{question.category.title}}</h6>
     <p>{{question.question}}</p>
-    <p>Question №{{question.id}}</p>
     <div>
       <mdl-button class="correct" colored raised v-if="correct === true" @click.native="skip_question">Next question</mdl-button>
       <mdl-button colored raised v-else-if="correct === false" @click.native="skip_question">Skip question</mdl-button>
