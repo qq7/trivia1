@@ -4,18 +4,15 @@
     <h5>Question:</h5>
     <p>{{question.question}}</p>
     <p>Question №{{question.id}}</p>
-
     <div>
       <mdl-button class="correct" colored raised v-if="correct === true" @click.native="skip_question">Next question</mdl-button>
       <mdl-button colored raised v-else-if="correct === false" @click.native="skip_question">Skip question</mdl-button>
     </div>
-
     <p>total questions: {{total}}</p>
     <p>correct answers: {{answers}}</p>
-    <mdl-button class="answer shuffled" raised v-for="(letter, index) in shuffled" @click.native="addLetter(letter, index)">{{letter}}</mdl-button>
-
+    <mdl-button class="answer shuffled" raised v-for="(letter, index) in shuffled" @click.native="add_letter(letter, index)">{{letter}}</mdl-button>
     <div>
-      <mdl-button raised class="answer chosen" v-for="(choose, index) in chosen" @click.native="removeLetter(choose, index)">{{choose}}</mdl-button>
+    <mdl-button raised class="answer chosen" v-for="(choose, index) in chosen" @click.native="remove_letter(choose, index)">{{choose}}</mdl-button>
     </div>
   </div>
 </template>
@@ -31,7 +28,7 @@
                 total: 0,
                 answers: 0,
                 chosen: [],
-                splitLetter: [],
+                split_letter: [],
                 shuffled: [],
                 correct: false,
 
@@ -43,16 +40,16 @@
                     this.question = response.data[0];
                     this.total += 1;
                     this.chosen = [];
-                    this.splitLetter = response.data[0].answer.split('');
-                    this.shuffled = this.shuffle(this.splitLetter);
+                    this.split_letter = response.data[0].answer.split('');
+                    this.shuffled = this.shuffle(this.split_letter);
                     console.log(response.data[0].answer);
                 });
             },
-            addLetter(letter, index) {
+            add_letter(letter, index) {
                 this.chosen.push(letter);
                 this.shuffled.splice(index, 1);
             },
-            removeLetter(choose, index) {
+            remove_letter(choose, index) {
                 this.chosen.splice(index, 1);
                 this.shuffled.push(choose);
             },
